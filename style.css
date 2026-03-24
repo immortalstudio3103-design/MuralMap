@@ -1,0 +1,358 @@
+/*
+ * Thrive Collective - Mural Map - style.css
+ * Modern, glassmorphism design with a dark theme and blue-pink gradients.
+ * Features a refactored mural detail panel for a sliding side view.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --panel-bg: rgba(17, 24, 39, 0.92);
+  --panel-border: rgba(148, 163, 184, 0.16);
+  --panel-shadow: 0 25px 70px rgba(2, 6, 23, 0.55);
+  --brand-blue: #3b82f6;
+  --brand-pink: #f472b6;
+  --text-muted: #9ca3af;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f3f4f6;
+  background: #030712;
+  overflow: hidden; /* Avoid double scrollbar with sidebar */
+}
+
+#app {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex; /* Sidebar and Map area are siblings */
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.25), transparent 45%),
+    radial-gradient(circle at 20% 80%, rgba(244, 114, 182, 0.18), transparent 50%),
+    #030712;
+}
+
+/* Sidebar Styling */
+#sidebar {
+  width: min(380px, 40%);
+  height: 100%;
+  padding: 24px;
+  background: var(--panel-bg);
+  border-right: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(24px);
+  z-index: 10;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) rgba(17, 24, 39, 0.5);
+}
+
+#sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+#sidebar::-webkit-scrollbar-track {
+  background: rgba(17, 24, 39, 0.5);
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 4px;
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.sidebar-header .logo {
+  max-width: 150px;
+  height: auto;
+}
+
+/* Define sidebar utility and filtering areas, same as original */
+/* (omitted for brevity, keep all .utility-panel, .nearest-actions, .filters, etc. styles) */
+
+/* Specific styling for the side-view Mural Detail Panel */
+.mural-detail-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 35vw; /* Dedicated width for the side view */
+  height: 100vh;
+  padding: 32px;
+  background: var(--panel-bg);
+  border-left: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(24px);
+  z-index: 20;
+  color: #e5e7eb;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  transform: translateX(100%); /* Initially off-screen right */
+  opacity: 0;
+  overflow-y: auto;
+}
+
+.mural-detail-panel:not(.hidden) {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mural-detail-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.mural-name-address {
+  flex: 1;
+}
+
+.mural-detail-panel-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.mural-detail-panel-address {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.mural-detail-panel-close {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border-radius: 10px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.mural-detail-panel-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.mural-detail-panel-image {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: #1f2937;
+  max-height: 30vh;
+}
+
+.mural-detail-panel-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.mural-detail-panel-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background: #374151;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 18px;
+}
+
+.mural-detail-panel-summary {
+  margin-bottom: 28px;
+}
+
+.mural-detail-panel-summary h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+}
+
+.mural-detail-panel-summary p {
+  margin: 0;
+  color: #d1d5db;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.mural-detail-panel-portfolio-link {
+  margin-bottom: 28px;
+}
+
+.mural-detail-panel-portfolio-link a {
+  display: inline-block;
+  font-size: 15px;
+  color: var(--brand-blue);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.mural-detail-panel-portfolio-link a:hover {
+  color: #93c5fd;
+}
+
+.mural-detail-panel-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.mural-detail-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mural-detail-meta-label {
+  color: #9ca3af;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.mural-detail-meta-value {
+  color: #e5e7eb;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.mural-detail-panel-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto; /* Push actions to the bottom */
+}
+
+.mural-detail-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.mural-detail-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #93c5fd;
+}
+
+.mural-detail-btn-primary {
+  background: var(--brand-blue);
+  color: #ffffff;
+  border-color: var(--brand-blue);
+}
+
+.mural-detail-btn-primary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 1024px) {
+  #sidebar {
+    width: 100%;
+    position: fixed;
+    height: 85vh;
+    border-radius: 32px 32px 0 0;
+    transform: translateY(100%);
+    bottom: 0;
+    top: auto;
+  }
+
+  body.sidebar-open #sidebar {
+    transform: translateY(0);
+  }
+
+  .mural-detail-panel {
+    width: 100%;
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .mural-detail-panel {
+    height: 90vh;
+    transform: translateY(100%); /* Slides up on mobile */
+    border-radius: 32px 32px 0 0;
+    padding: 24px;
+    left: 0;
+    right: 0;
+    top: auto;
+    bottom: 0;
+    transition: transform 0.35s ease-out, opacity 0.3s;
+  }
+
+  .mural-detail-panel:not(.hidden) {
+    transform: translateY(0);
+  }
+}
+
+/* Map area */
+#map-container {
+  flex: 1;
+  position: relative;
+  background: #0f172a;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Define common hidden and map-state utility classes */
+.hidden {
+  display: none;
+}
