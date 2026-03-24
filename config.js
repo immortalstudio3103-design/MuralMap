@@ -1,6 +1,14 @@
 // Global configuration for the mural map prototype.
 // Update these values for your own Sheet / defaults.
 
+// js/config.js
+window.MURAL_MAP_CONFIG = {
+  // Replace [YOUR_SHEET_ID] with the long string of letters/numbers in your Sheet URL
+  CSV_URL: "https://docs.google.com/spreadsheets/d/[1534722208]/export?format=csv",
+  
+  DEFAULT_CENTER: { lat: 40.7128, lng: -74.006 },
+  DEFAULT_ZOOM: 11
+
 window.MURAL_MAP_CONFIG = {
     // 1. CSV URL from "Publish to web" in Google Sheets (format: CSV).
     // Example:
