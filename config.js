@@ -6,7 +6,7 @@ window.MURAL_MAP_CONFIG = {
     // Example:
     // "https://docs.google.com/spreadsheets/d/XYZ/pub?output=csv"
   CSV_URL:
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vRn4E5a1eZpAWkCvxz3HGed_vPMYJjiMAMaHPwsMK_CQCKehFuwmciN-4o0Vsk3F7oCKB1YTLqjJFtF/pub?output=csv",
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQrPWPKNThBw5cAUYFCWb4-S6J9_Du2u3tDnqQno3v6fYq5sjx_qCB2c8T0raIE7OZvLN1ANuczcD4Y/pub?gid=911993096&single=true&output=csv",
   
     // 2. Default map view (New York City center).
     DEFAULT_CENTER: { lat: 40.7128, lng: -74.006 },
@@ -34,7 +34,7 @@ window.MURAL_TOURS = [
     id: "bronx",
     name: "Bronx Storyline",
 
-    description: "A sample route stitching Bronx campus murals together.",
+    description: "A route stitching Bronx campus murals together.",
     borough: "Bronx",
     keywords: ["bronx", "149", "fordham", "ms"],
     color: "#34d399",
