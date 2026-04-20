@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <title>Thrive Collective - Mural Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css" rel="icon"/>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
   <body>
     <div id="app">
@@ -18,67 +19,70 @@
 
         <section class="utility-panel">
           <div class="utility-headline">
-            <p>Plan your visit on the go.</p>
+            <p>Find a Mural Near You.</p>
           </div>
-          <div class="nearest-actions">
-            <button id="locateMeBtn" class="primary-btn">Find murals near me</button>
+          <input id="manual-address-input" type="text" placeholder="Enter your address or zip code…" class="address-input" autocomplete="off" />
+          <div class="location-actions">
+            <button id="use-device-gps-btn" class="ghost-btn">Use Device GPS</button>
             <button id="clearLocationBtn" class="ghost-btn">Clear</button>
           </div>
-          <div id="nearestResults" class="nearest-results empty">
-            <p>Tap “Find murals near me” to surface the closest murals and walking directions.</p>
-          </div>
+          <div id="nearestResults" class="nearest-results empty"></div>
         </section>
 
         <section class="filters">
           <div class="filter-group">
-            <label>Mural View</label>
-            <div class="filter-scroll-container">
-              <div class="filter-scroll" id="muralViewFilter">
-                <button class="filter-btn active" data-value="100">100%</button>
-                <button class="filter-btn" data-value="75">75%</button>
-                <button class="filter-btn" data-value="50">50%</button>
-                <button class="filter-btn" data-value="25">25%</button>
-              </div>
-            </div>
+            <label>Mural View — <span id="muralViewLabel">100%</span></label>
+            <input type="range" id="muralViewSlider" min="10" max="100" step="5" value="100" class="mural-view-slider" />
+          </div>
+          <div class="filter-group" style="margin-top: 15px; border-top: 1px solid #444; padding-top: 15px;">
+            <label style="display: flex; align-items: center; cursor: pointer; color: white;">
+              <input type="checkbox" id="toggleDistricts" checked style="margin-right: 10px; width: 18px; height: 18px;">
+              Show Council Districts
+            </label>
           </div>
 
           <div class="filter-group">
             <label for="searchInput">Search</label>
-            <input type="text" id="searchInput" placeholder="Search murals..." />
+            <input type="text" id="searchInput" placeholder="Search Murals..." />
+          </div>
+          
+          <div class="filter-group">
+            <label for="yearFilter">Year</label>
+            <select id="yearFilter" class="filter-select">
+              <option value="">All Years</option>
+            </select>
           </div>
 
           <div class="filter-group">
-            <label>Year</label>
-            <div class="filter-scroll-container">
-              <div class="filter-scroll" id="yearFilter">
-                </div>
-            </div>
+            <label for="schoolsFilter">Schools / Sites</label>
+            <select id="schoolsFilter" class="filter-select">
+              <option value="">All Schools</option>
+            </select>
           </div>
 
           <div class="filter-group">
-            <div class="filter-header">
-              <label>Schools / Sites</label>
-              <button class="view-all-btn" id="schoolsViewAll">View all</button>
-            </div>
-            <div class="filter-scroll-container">
-              <div class="filter-scroll" id="schoolsFilter">
-                </div>
-            </div>
+            <label for="boroughFilter">Borough</label>
+            <select id="boroughFilter" class="filter-select">
+              <option value="">All Boroughs</option>
+            </select>
           </div>
 
-          <div class="filter-group">
-            <div class="filter-header">
-              <label>Borough</label>
-              <button class="view-all-btn" id="boroughViewAll">View all</button>
-            </div>
-            <div class="filter-scroll-container">
-              <div class="filter-scroll" id="boroughFilter">
-                </div>
-            </div>
+        </section>
+
+        <section class="tours-panel">
+          <div class="filter-header">
+            <label>Curated Tours</label>
+          </div>
+          <p class="tours-panel-subtitle">
+            Routes that chain murals by borough. Use them as starting points for walking tours.
+          </p>
+          <div id="tourCards" class="tour-card-grid">
+            <!-- Populated via JS -->
           </div>
         </section>
       </aside>
 
+      <!-- Modal for View All popups -->
       <div id="viewAllModal" class="modal hidden">
         <div class="modal-content">
           <div class="modal-header">
@@ -86,7 +90,8 @@
             <button class="modal-close" id="modalClose">&times;</button>
           </div>
           <div class="modal-body" id="modalBody">
-            </div>
+            <!-- Content will be populated dynamically -->
+          </div>
         </div>
       </div>
 
@@ -98,9 +103,6 @@
         </div>
       </main>
 
-      <div id="muralDetailPanel" class="mural-detail-panel hidden">
-        </div>
-
       <button
         id="sidebarShowTab"
         class="sidebar-show-tab hidden"
@@ -111,19 +113,14 @@
       </button>
     </div>
 
+    <!-- Config (CSV URL, defaults, etc.) -->
     <script src="js/config.js"></script>
-    <script>
-      window.MURAL_TOURS = [
-        { id: "queens_st", name: "Queens Street Art Tour", description: "Discover the vibrant murals transforming Queens.", borough: "Queens", keywords: ["queens", "street art"], limit: 12 }
-      ];
-    </script>
+    <!-- MarkerClusterer library for clustering -->
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <!-- Map logic -->
     <script src="js/map.js"></script>
 
-    <script
-      async
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDf_8CxcMnNxWSpk-vUU5wC0Qog4SUVeM
-      &callback=initMap"
-    ></script>
+    <!-- Google Maps JavaScript API -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDf_8CxcMnNxWSpk-vUU5wC0Qog4SUVeM&libraries=places&callback=initMap"></script>
   </body>
 </html>
