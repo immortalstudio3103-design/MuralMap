@@ -57,7 +57,7 @@ body {
   padding: 28px 28px 32px;
   background: var(--panel-bg);
   border: 1px solid var(--panel-border);
-  border-radius: 28px;
+  border-radius: 5px;
   box-shadow: var(--panel-shadow);
   display: flex;
   flex-direction: column;
@@ -166,17 +166,17 @@ body {
 .utility-panel {
   padding: 16px;
   border: 1px solid rgba(148, 163, 184, 0.2);
-  border-radius: 20px;
+  border-radius: 5px;
   background: rgba(15, 23, 42, 0.6);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .utility-headline p {
   margin: 0;
   color: #e2e8f0;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -191,17 +191,17 @@ body {
   flex: 1;
   border-radius: 999px;
   border: none;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  padding: 10px 16px;
+  padding: 10px 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .primary-btn {
   background: linear-gradient(90deg, var(--brand-blue), var(--brand-pink));
   color: #0f172a;
-  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 4px rgba(59, 130, 246, 0.25);
 }
 
 .primary-btn:hover {
@@ -334,7 +334,7 @@ body {
 #searchInput {
   width: 100%;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid rgba(148, 163, 184, 0.35);
   background: rgba(15, 23, 42, 0.65);
   color: #ffffff;
@@ -351,92 +351,7 @@ body {
   background: rgba(15, 23, 42, 0.85);
 }
 
-.filter-scroll-container {
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
-}
-
-.filter-scroll-container::-webkit-scrollbar {
-  height: 6px;
-}
-
-.filter-scroll-container::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.2);
-  border-radius: 3px;
-}
-
-.filter-scroll-container::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.5);
-  border-radius: 3px;
-}
-
-.filter-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(241, 245, 249, 0.7);
-}
-
-.filter-scroll {
-  display: flex;
-  gap: 8px;
-  padding-bottom: 4px;
-  min-width: min-content;
-}
-
-.filter-scroll.year-filter .filter-btn {
-  min-width: 50px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(15, 23, 42, 0.8);
-  color: #dbeafe;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.2s;
-}
-
-.filter-scroll.year-filter .filter-btn:hover {
-  background: rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.45);
-}
-
-.filter-scroll.year-filter .filter-btn.active {
-  background: #ffffff;
-  color: #1f2937;
-  border-color: #ffffff;
-  font-weight: 600;
-}
-
-.filter-scroll:not(.year-filter) .filter-btn {
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  background: rgba(15, 23, 42, 0.7);
-  color: #e2e8f0;
-  font-size: 13px;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all 0.2s;
-}
-
-.filter-scroll:not(.year-filter) .filter-btn:hover {
-  background: rgba(59, 130, 246, 0.25);
-  border-color: rgba(59, 130, 246, 0.45);
-}
-
-.filter-scroll:not(.year-filter) .filter-btn.active {
-  background: #ffffff;
-  color: #1f2937;
-  border-color: #ffffff;
-  font-weight: 500;
-}
+/* scroll filters replaced by dropdowns */
 
 .modal {
   position: fixed;
@@ -584,7 +499,7 @@ body {
 
 .tour-card {
   padding: 14px 16px;
-  border-radius: 16px;
+  border-radius: 5px;
   border: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(15, 23, 42, 0.55);
   display: flex;
@@ -640,6 +555,19 @@ body {
   padding: 8px 14px;
   cursor: pointer;
   font-size: 13px;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Active tour — End tour button */
+.tour-card button.end-tour {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.tour-card button.end-tour:hover {
+  background: rgba(239, 68, 68, 0.32);
+  color: #fee2e2;
 }
 
 @media (max-width: 1024px) {
@@ -687,24 +615,57 @@ body {
   }
 }
 
-
+/* ── Mural popup — matches sidebar glassmorphism ────────────────── */
 .gm-style-iw-d {
-  background: #374151 !important;
-  color: #e5e7eb !important;
+  background: rgba(17, 24, 39, 0.96) !important;
+  color: #e2e8f0 !important;
   padding: 0 !important;
   overflow: hidden !important;
   width: 500px !important;
   max-width: 500px !important;
   min-width: 500px !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
 }
 
 .gm-style-iw-c {
-  background: #374151 !important;
+  background: rgba(17, 24, 39, 0.96) !important;
+  border: 1px solid rgba(148, 163, 184, 0.16) !important;
+  box-shadow: 0 25px 70px rgba(2, 6, 23, 0.55) !important;
   padding: 0 !important;
   width: 500px !important;
   max-width: 500px !important;
   min-width: 500px !important;
   overflow: hidden !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+}
+
+/* ── Directions panel — floats to the right of the sidebar ─────── */
+#directions-panel {
+  /* Positioning is set dynamically in JS to match sidebar's exact coordinates */
+}
+
+#directions-panel #dir-route-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
+}
+
+#directions-panel #dir-route-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#directions-panel #dir-route-list::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 30px;
+}
+
+/* Collapse panel on narrow screens where there's no room beside the sidebar */
+@media (max-width: 900px) {
+  #directions-panel {
+    display: none !important;
+  }
 }
 
 .gm-style-iw-d::-webkit-scrollbar,
@@ -724,8 +685,8 @@ body {
 }
 
 .gm-style-iw-d > div {
-  background: #374151 !important;
-  color: #e5e7eb !important;
+  background: rgba(17, 24, 39, 0.96) !important;
+  color: #e2e8f0 !important;
   overflow: hidden !important;
 }
 
@@ -737,3 +698,180 @@ body {
   display: none !important;
 }
 
+/* --- CUSTOM SCROLLBAR FOR SIDEBAR --- */
+
+/* 1. For Chrome, Edge, and Safari */
+#sidebar::-webkit-scrollbar {
+  width: 8px; /* Makes the bar thinner and less intrusive */
+}
+
+#sidebar::-webkit-scrollbar-track {
+  background: transparent; /* Makes the track blend into the sidebar background */
+}
+
+#sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(148, 163, 184, 0.2); /* Uses a semi-transparent version of your border color */
+  border-radius: 30px; /* Makes the edges rounded and modern */
+}
+
+#sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(148, 163, 184, 0.4); /* Brightens slightly when hovered */
+}
+
+
+/* ── Address input ─────────────────────────────────────────────────── */
+.address-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #ffffff;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.address-input::placeholder {
+  color: var(--text-muted);
+}
+
+.address-input:focus {
+  border-color: #93c5fd;
+  background: rgba(15, 23, 42, 0.85);
+}
+
+/* Google autocomplete dropdown matches dark theme */
+.pac-container {
+  background: #1e293b;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(2, 6, 23, 0.5);
+  font-family: inherit;
+}
+
+.pac-item {
+  color: #e2e8f0;
+  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.pac-item:hover,
+.pac-item-selected {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.pac-item-query {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.pac-matched {
+  color: #60a5fa;
+}
+
+.pac-icon {
+  display: none;
+}
+
+/* ── Location action buttons row ───────────────────────────────────── */
+.location-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.location-actions .ghost-btn {
+  flex: 1;
+  font-size: 12px;
+  padding: 8px 10px;
+}
+
+/* ── Filter select dropdowns ───────────────────────────────────────── */
+.filter-select {
+  width: 100%;
+  padding: 9px 32px 9px 12px;
+  border-radius: 5px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.65);
+  color: #e2e8f0;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  /* Chevron arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239ca3af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.filter-select:hover {
+  border-color: rgba(148, 163, 184, 0.55);
+  background-color: rgba(15, 23, 42, 0.8);
+}
+
+.filter-select:focus {
+  border-color: #93c5fd;
+  background-color: rgba(15, 23, 42, 0.85);
+}
+
+.filter-select option {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+/* ── Mural view range slider ───────────────────────────────────────── */
+.mural-view-slider {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(
+    to right,
+    #3b82f6 0%,
+    #3b82f6 calc(var(--val, 100) * 1%),
+    rgba(148, 163, 184, 0.25) calc(var(--val, 100) * 1%),
+    rgba(148, 163, 184, 0.25) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.mural-view-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mural-view-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 2px 14px rgba(59, 130, 246, 0.6);
+}
+
+.mural-view-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  cursor: pointer;
+}
+
+/* 2. For Firefox */
+#sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
+}
